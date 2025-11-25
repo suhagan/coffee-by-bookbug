@@ -1,73 +1,198 @@
-# React + TypeScript + Vite
+# **Coffee by BookBug ☕**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript dashboard styled entirely with **Tailwind CSS**.
+Includes cards, lists, filtering, dark mode, and responsive layout.
+Built as part of the Tailwind CSS dashboard assignment.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Features**
 
-## React Compiler
+### Fully Styled With Tailwind
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+All styling is done using Tailwind utility classes — no custom CSS.
 
-## Expanding the ESLint configuration
+### Responsive Dashboard Layout
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Header
+- Summary cards
+- Drink list
+- Buttons
+- Proper layout spacing
+- Scales from mobile → desktop
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Live Data From API
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Data is fetched from:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+https://api.sampleapis.com/coffee/hot
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Because API data is inconsistent, a custom classifier is used to split items into:
+
+- **Hot Drinks**
+- **Iced Drinks**
+
+### Filtering & Search
+
+- Dropdown: Hot / Iced
+- Search input: filter by drink title
+- Handles empty results gracefully
+
+### Card-Based List
+
+- Image on the left
+- Text on the right
+- Hover animation
+- Dark/light support
+
+### Dark Mode
+
+- Implemented using a custom `useDarkMode` hook
+- Persists theme using `localStorage`
+- Page-wide background adapts
+- Smooth animated transitions
+
+### Reusable Components
+
+- `Header`
+- `Card`
+- `Button`
+- `CoffeeList`
+- `Dashboard`
+- `useFetch` hook
+- `useDarkMode` hook
+
+---
+
+# **Tech Stack**
+
+- React + Vite
+- TypeScript
+- Tailwind CSS
+- Custom Hooks
+- Responsive Layout
+- API Integration
+
+---
+
+## **Installation**
+
+Clone the repo:
+
+```bash
+git clone https://github.com/suhagan/coffee-by-bookbug.git
+cd coffee-by-bookbug
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+Visit:
+
+```
+http://localhost:5173
+```
+
+---
+
+# **Tailwind Installation Steps (as performed in this project)**
+
+These are the **exact steps** used to set up Tailwind in this project.
+
+### 1. Install Tailwind + PostCSS + Autoprefixer
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+### 2. Initialize Tailwind & PostCSS config files
+
+```bash
+npx tailwindcss init -p
+```
+
+This created:
+
+```
+tailwind.config.js
+postcss.config.js
+```
+
+### 3. Configure Tailwind content paths
+
+In **tailwind.config.js**:
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+export default {
+  darkMode: "class",
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {},
   },
-])
+  plugins: [],
+};
 ```
+
+### 4. Add Tailwind directives to index.css
+
+In `src/index.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  @apply bg-gray-50 dark:bg-gray-900 transition-colors;
+}
+```
+
+---
+
+## **Project Structure**
+
+```
+src/
+├── components/
+│   ├── Header.tsx
+│   ├── Card.tsx
+│   ├── Button.tsx
+│   ├── CoffeeList.tsx
+│
+├── hooks/
+│   ├── useFetch.ts
+│   ├── useDarkMode.ts
+│
+├── pages/
+│   └── Dashboard.tsx
+│
+├── App.tsx
+├── main.tsx
+└── index.css
+```
+
+---
+
+## **Author**
+
+**Suhagan Mostahid**
